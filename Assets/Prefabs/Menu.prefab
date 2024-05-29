@@ -1102,8 +1102,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 7460157593444884184}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.8, y: 0}
-  m_AnchorMax: {x: 0.8, y: 1}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0.00018310547, y: -0.000061035156}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1662,6 +1662,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4753371665951879743}
+  - component: {fileID: 1645184528128197664}
   - component: {fileID: 8802042033297549455}
   m_Layer: 5
   m_Name: Common slider
@@ -1692,6 +1693,20 @@ RectTransform:
   m_AnchoredPosition: {x: -290, y: 301}
   m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1645184528128197664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1994074843986836766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90d938b85f194f19bacd3e66f6b99abc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _mixer: {fileID: 24100000, guid: be305deb5e9dccf4eb1b55ff2104fee4, type: 2}
+  _mixerParameterName: Master
 --- !u!114 &8802042033297549455
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1881,12 +1896,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 2667a0a008b044e218b63df62e2be749, type: 3}
   - {fileID: 8300000, guid: 52320e590bf774734a288886eba557ba, type: 3}
   - {fileID: 8300000, guid: 7478151cf36724a7dada558f746c3633, type: 3}
-  _sliderOfCommonSound: {fileID: 8802042033297549455}
-  _sliderOfButtonSound: {fileID: 567481674568054848}
-  _sliderOfBackgroundSound: {fileID: 8447078350860093537}
-  _parameterMasterChannel: Master
-  _parameterBackgroundChannel: Background
-  _parameterButtonChannel: Button
+  _masterSlider: {fileID: 1645184528128197664}
 --- !u!1 &2746937057101030166
 GameObject:
   m_ObjectHideFlags: 0
@@ -2339,6 +2349,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1956005561173840288}
+  - component: {fileID: 3203638646715954936}
   - component: {fileID: 8447078350860093537}
   m_Layer: 5
   m_Name: Background sound slider
@@ -2369,6 +2380,20 @@ RectTransform:
   m_AnchoredPosition: {x: -290, y: 6}
   m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &3203638646715954936
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3576169118854506519}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90d938b85f194f19bacd3e66f6b99abc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _mixer: {fileID: 24100000, guid: be305deb5e9dccf4eb1b55ff2104fee4, type: 2}
+  _mixerParameterName: Background
 --- !u!114 &8447078350860093537
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2976,8 +3001,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 9117438000724864311}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.8, y: 0}
-  m_AnchorMax: {x: 0.8, y: 1}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0.00018310547, y: -0.000061035156}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -3052,7 +3077,7 @@ RectTransform:
   m_Father: {fileID: 991985285553647145}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0.8, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0.00018310547, y: -0.000061035156}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -4256,7 +4281,7 @@ RectTransform:
   m_Father: {fileID: 2535915919019737927}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0.8, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0.00018310547, y: -0.000061035156}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -4590,6 +4615,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3239743708902674469}
+  - component: {fileID: 3607415407494074478}
   - component: {fileID: 567481674568054848}
   m_Layer: 5
   m_Name: Sounds slider
@@ -4620,6 +4646,20 @@ RectTransform:
   m_AnchoredPosition: {x: -290, y: 152}
   m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &3607415407494074478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6456843971233069016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90d938b85f194f19bacd3e66f6b99abc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _mixer: {fileID: 24100000, guid: be305deb5e9dccf4eb1b55ff2104fee4, type: 2}
+  _mixerParameterName: Button
 --- !u!114 &567481674568054848
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4928,8 +4968,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 9034618675475095713}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.8, y: 0}
-  m_AnchorMax: {x: 0.8, y: 1}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0.00018310547, y: -0.000061035156}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -6002,7 +6042,7 @@ RectTransform:
   m_Father: {fileID: 3134679492718507437}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0.8, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0.00018310547, y: -0.000061035156}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
