@@ -13,7 +13,7 @@ public class MixerChannelChanger : MonoBehaviour
     private int _minLogValue = -80;
     private float _savedValue;
 
-    public void Awake()
+    private void Awake()
     {
         if (TryGetComponent(out Slider slider))
         {
