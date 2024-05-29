@@ -12,7 +12,7 @@ public class SoundController : MonoBehaviour
     [SerializeField] private AudioMixer _audioMixer;
     [SerializeField] private AudioSource _audioSourceButton;
     [SerializeField] private AudioClip[] _audioClips;
-    [SerializeField] private SliderChanger _masterChanger;
+    [SerializeField] private MixerChannelChanger _masterChannelChanger;
 
     private bool _isEnableSound = true;
 
@@ -27,12 +27,12 @@ public class SoundController : MonoBehaviour
         if (_isEnableSound)
         {
             _isEnableSound = false;
-            _masterChanger.Mute();
+            _masterChannelChanger.Mute();
         }
         else
         {
             _isEnableSound = true;
-            _masterChanger.Unmute();
+            _masterChannelChanger.Unmute();
         }
     }
 }

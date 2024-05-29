@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
 
-public class SliderChanger : MonoBehaviour
+public class MixerChannelChanger : MonoBehaviour
 {
     [SerializeField] private AudioMixer _mixer;
     [SerializeField] private string _mixerParameterName;
