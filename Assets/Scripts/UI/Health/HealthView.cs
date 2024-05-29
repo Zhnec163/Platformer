@@ -1,27 +1,18 @@
+using System;
 using UnityEngine;
 
 public abstract class HealthView : MonoBehaviour
 {
-    [SerializeField] protected Health Health;
+    [field: SerializeField] protected Health Health;
 
     private float _localScaleX;
-    
+
     protected virtual void Start()
     {
         _localScaleX = Health.transform.localScale.x;
         Change();
     }
-
-    private void OnEnable()
-    {
-        Health.ChangeAction += Change;
-    }
-
-    private void OnDisable()
-    {
-        Health.ChangeAction -= Change;
-    }
-
+    
     private void LateUpdate()
     {
         if (_localScaleX != Health.transform.localScale.x)
@@ -30,6 +21,16 @@ public abstract class HealthView : MonoBehaviour
             transform.localScale = localScale;
             _localScaleX = transform.localScale.x;
         }
+    }
+    
+    private void OnEnable()
+    {
+        Health.ChangeAction += Change;
+    }
+
+    private void OnDisable()
+    {
+        Health.ChangeAction -= Change;
     }
 
     protected abstract void Change();

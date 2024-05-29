@@ -1,17 +1,18 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
 public class SmoothSliderHealthView : SliderHealthView
 {
     [SerializeField] private float _speed;
-    
+
     private Coroutine _healthChangingCoroutine;
-    
+
     protected override void Change()
     {
         if (_healthChangingCoroutine != null)
             StopCoroutine(_healthChangingCoroutine);
-        
+
         _healthChangingCoroutine = StartCoroutine(HealthChanging());
     }
 
