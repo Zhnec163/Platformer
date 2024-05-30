@@ -10,7 +10,7 @@ public class TextHealthView : HealthView
             _text = text;
     }
 
-    protected override void Change()
+    protected override void HandleValueChange()
     {
         if (_text != null)
             _text.text = $"{Health.Current} / {Health.MaxHealthPont}";

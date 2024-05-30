@@ -3,10 +3,10 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
+    public event Action OnValueChanged;
+    
     [field: SerializeField] public float MaxHealthPont { get; private set; }
     [field: SerializeField] public float Current { get; private set; }
-
-    public event Action ChangeAction;
 
     private void OnValidate()
     {
@@ -14,21 +14,21 @@ public class Health : MonoBehaviour
             Current = MaxHealthPont;
     }
     
-    public void AddHealth(float value)
+    public void Add(float value)
     {
         if (value <= 0) 
             return;
         
         Current = Mathf.Clamp(Current + value, 0, MaxHealthPont);
-        ChangeAction?.Invoke();
+        OnValueChanged?.Invoke();
     }
     
-    public void TakeHealth(float value)
+    public void Subtract(float value)
     {
         if (value <= 0) 
             return;
         
         Current = Mathf.Clamp(Current - value, 0, Current);
-        ChangeAction?.Invoke();
+        OnValueChanged?.Invoke();
     }
 }

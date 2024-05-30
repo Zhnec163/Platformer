@@ -22,7 +22,7 @@ public class Player : Character
             if (loot is Coin)
                 _coinCount++;
             else if (loot is MedicineChest medicineChest)
-                Health.AddHealth(medicineChest.HealingPoints);
+                Health.Add(medicineChest.HealingPoints);
 
             loot.Tacked();
         }

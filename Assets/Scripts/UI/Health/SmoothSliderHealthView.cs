@@ -8,7 +8,7 @@ public class SmoothSliderHealthView : SliderHealthView
 
     private Coroutine _healthChangingCoroutine;
 
-    protected override void Change()
+    protected override void HandleValueChange()
     {
         if (_healthChangingCoroutine != null)
             StopCoroutine(_healthChangingCoroutine);
@@ -18,9 +18,9 @@ public class SmoothSliderHealthView : SliderHealthView
 
     private IEnumerator HealthChanging()
     {
-        while (Slider.value != Health.Current)
+        while (Slider.value != Health.Current / Health.MaxHealthPont)
         {
-            Slider.value = Mathf.MoveTowards(Slider.value, Health.Current, Time.deltaTime * _speed);
+            Slider.value = Mathf.Lerp(Slider.value, Health.Current / Health.MaxHealthPont, Time.deltaTime * _speed);
             yield return null;
         }
     }

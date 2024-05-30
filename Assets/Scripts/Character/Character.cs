@@ -23,7 +23,7 @@ public abstract class Character : MonoBehaviour
         character.TakeDamage(Damage);
     }
 
-    private void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
         if (Mathf.Clamp(Health.Current - damage, 0, Health.MaxHealthPont) == 0)
         {
@@ -31,13 +31,13 @@ public abstract class Character : MonoBehaviour
         }
         else
         {
-            Health.TakeHealth(damage);
+            Health.Subtract(damage);
         }
     }
     
     private void ToDie()
     {
-        Health.TakeHealth(Health.Current);
+        Health.Subtract(Health.Current);
         StartCoroutine(DeactivateDelay());
     }
 
