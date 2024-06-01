@@ -3,16 +3,40 @@ using System.Collections.Generic;
 using Platformer;
 using UnityEngine;
 
-[RequireComponent(typeof(PlayerMoverController), typeof(AnimationController), typeof(Health))]
+[RequireComponent(typeof(PlayerInput), typeof(PlayerMoveController), typeof(AnimationController))]
 public class Player : Character
 {
     private int _coinCount;
+    private PlayerInput _input;
+    private PlayerMoveController _playerMoveController;
+    protected AnimationController _animationController;
+    private Attack _attack;
+    private Vampirism _vampirism;
 
     private void Awake()
     {
         Init();
-        PlayerMoverController playerMoverController = GetComponent<PlayerMoverController>();
-        playerMoverController.Init(HandleAttacking);
+
+        if (TryGetComponent(out PlayerInput input))
+            _input = input;
+        
+        if (TryGetComponent(out AnimationController animationController))
+            _animationController = animationController;
+
+        if (TryGetComponent(out Attack attack))
+            _attack = attack;
+
+        if (TryGetComponent(out Vampirism vampirism))
+            _vampirism = vampirism;
+
+        _input.Init(HandleMove, HandleJump, HandleAttack, HandleVampirism);
+        _playerMoveController = GetComponent<PlayerMoveController>();
+    }
+
+    private void FixedUpdate()
+    {
+        if (_playerMoveController.IsIdle)
+            _animationController.PlayingIdleAnimation();
     }
 
     private void OnTriggerEnter2D(Collider2D collider2D)
@@ -28,8 +52,23 @@ public class Player : Character
         }
     }
 
-    private void HandleAttacking(List<Enemy> enemies)
+    private void HandleMove(float direction)
     {
-        enemies.ForEach(enemy => Attack(enemy));
+        _animationController.PlayingMovingAnimation();
+        _playerMoveController.Move(direction);
+    }
+
+    private void HandleJump() => _playerMoveController.TryJump();
+
+    private void HandleAttack()
+    {
+        _animationController.PlayingAttackingAnimation();
+        _attack.TryUse();
+    }
+
+    private void HandleVampirism()
+    {
+        _animationController.PlayingAttackingAnimation();
+        _vampirism.TryUse();
     }
 }

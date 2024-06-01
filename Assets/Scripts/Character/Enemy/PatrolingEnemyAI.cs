@@ -3,33 +3,36 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyMover : CharacterMover
+[RequireComponent(typeof(AnimationController))]
+public class PatrolingEnemyAI : CharacterMover
 {
     [SerializeField] private float _patrolRadius = 3F;
-    [SerializeField] private float _attackDistance = 1.5F;
+    [SerializeField] private float _attackDistance = 1F;
 
+    private AnimationController _animationController;
     private bool _isMovingLeft;
     private float _leftPositionX;
     private float _rightPositionX;
-    private Action<Player> _onPlayerAttack;
+    private Attack _attack;
 
-    private void FixedUpdate()
-    {
-        GuardTerritory();
-    }
-
-    private void OnDestroy()
-    {
-        _onPlayerAttack = null;
-    }
-
-    public void Init(Action<Player> onPlayerAttack)
+    private void Awake()
     {
         base.Init();
-        _onPlayerAttack = onPlayerAttack;
+
+        if (TryGetComponent(out Attack attack))
+            _attack = attack;
+        
+        if (TryGetComponent(out AnimationController animationController))
+            _animationController = animationController;
+        
         _leftPositionX = transform.position.x - _patrolRadius;
         _rightPositionX = transform.position.x + _patrolRadius;
         _isMovingLeft = _spriteRenderer.flipX;
+    }
+    
+    private void FixedUpdate()
+    {
+        GuardTerritory();
     }
 
     private void GuardTerritory()
@@ -40,11 +43,15 @@ public class EnemyMover : CharacterMover
         {
             if (hit.transform.TryGetComponent(out Player player))
             {
-                if (_canAttacking && Vector3.Distance(player.transform.position, transform.position) < _attackDistance)
-                    Attack(player);
+                if (Vector3.Distance(player.transform.position, transform.position) < _attackDistance)
+                {
+                    Attack();
+                }
                 else
+                {
                     Chase(player);
-                
+                }
+
                 return;
             }
         }
@@ -52,22 +59,22 @@ public class EnemyMover : CharacterMover
         Patrol();
     }
 
-    private void Chase(Player player)
+    private void Attack()
     {
-        transform.position = Vector2.MoveTowards(transform.position, player.transform.position, MoveSpeed * Time.deltaTime);
-        _animationController.PlayingMovingAnimation();
+        if (_attack.TryUse())
+            _animationController.PlayingAttackingAnimation();
     }
 
-    private void Attack(Player player)
+    private void Chase(Player player)
     {
-        _canAttacking = false;
-        _animationController.PlayingAttackingAnimation();
-        _onPlayerAttack.Invoke(player);
-        StartCoroutine(ResetTimeAttack());
+        _animationController.PlayingMovingAnimation();
+        transform.position = Vector2.MoveTowards(transform.position, player.transform.position, MoveSpeed * Time.deltaTime);
     }
 
     private void Patrol()
     {
+        _animationController.PlayingMovingAnimation();
+        
         if (transform.position.x < _leftPositionX)
         {
             _isMovingLeft = false;

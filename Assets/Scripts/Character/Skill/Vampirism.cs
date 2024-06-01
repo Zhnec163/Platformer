@@ -1,71 +1,56 @@
 ﻿using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Vampirism : Skill
 {
-    [SerializeField] private Health _health;
-    [SerializeField] private float _timeDelayDammage;
-    [SerializeField] protected float _timeUse;
-    [SerializeField] protected float _timeCooldown;
+    [SerializeField] private float _timeUsing;
+    [SerializeField] private float _timeStep;
 
-    private Coroutine _coroutine = null;
-    
-    public override bool TryUse()
+    private Health _health;
+    private WaitForSeconds _delay;
+    private WaitForSeconds _castTime;
+    private bool _isCast;
+
+    private void Awake()
     {
-        bool isUsing = base.TryUse();
-
-        if (isUsing)
-        {
-            if (_coroutine != null)
-            {
-                StopCoroutine(_coroutine);
-                _coroutine = null;
-            }
-
-            _coroutine = StartCoroutine(Using());
-        }
-
-        return isUsing;
+        if (TryGetComponent(out Health health))
+            _health = health;
+        
+        _delay = new WaitForSeconds(_timeStep);
+        _castTime = new WaitForSeconds(_timeUsing);
     }
 
-    private Collider2D GetClosestCollider(Collider2D[] colliders)
+    protected override void Cast()
     {
-        float maxDistance = Single.MaxValue;
-        int indexСlosestCollider = 0;
-
-        if (colliders.Length == 0)
-            return null;
-
-        for (int i = 0; i < colliders.Length; i++)
-        {
-            float distance = Vector2.Distance(transform.position, colliders[i].transform.position);
-
-            if (maxDistance > distance)
-            {
-                maxDistance = distance;
-                indexСlosestCollider = i;
-            }
-        }
-
-        return colliders[indexСlosestCollider];
+        if (_isCast == false)
+            StartCoroutine(DrainLives());
     }
 
-    private IEnumerator Using()
+    private IEnumerator DrainLives()
     {
-        WaitForSeconds wait = new WaitForSeconds(_timeDelayDammage);
-
-        while (CanUseSkill)
+        if (TryGetNearCharacter(out Character character))
         {
-            Collider2D collider = GetClosestCollider(Physics2D.OverlapCircleAll(transform.position, DistanceUsing, LayerMaskAttacked));
+            _isCast = true;
+            StartCoroutine(StopCast());
             
-            if (collider != null && collider.TryGetComponent(out Character character))
+            while (_isCast)
             {
-                character.TakeDamage(Damage);
-                _health.Add(Damage);
-            }
+                if (Vector3.Distance(transform.position, character.transform.position) < DistanceUsing)
+                {
+                    character.TakeDamage(Damage);
+                    _health.Add(Damage);
+                }
 
-            yield return wait;
+                yield return _delay;
+            }
         }
+    }
+    
+    private IEnumerator StopCast()
+    {
+        yield return _castTime;
+        _isCast = false;
     }
 }

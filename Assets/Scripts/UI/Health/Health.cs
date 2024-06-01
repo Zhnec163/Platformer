@@ -31,4 +31,10 @@ public class Health : MonoBehaviour
         Current = Mathf.Clamp(Current - value, 0, Current);
         OnValueChanged?.Invoke();
     }
+        
+    public void ResetToZero()
+    {
+        Current = 0;
+        OnValueChanged?.Invoke();
+    }
 }

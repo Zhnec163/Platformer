@@ -11,13 +11,14 @@ GameObject:
   - component: {fileID: 4272795722312447678}
   - component: {fileID: 5930981678325071120}
   - component: {fileID: 2881740432777036257}
+  - component: {fileID: 7741148213478858217}
   - component: {fileID: 8274688846449871176}
   - component: {fileID: 658659695639083022}
   - component: {fileID: 994940978688578520}
   - component: {fileID: 2986040885329068658}
   - component: {fileID: 3895601554918660467}
   - component: {fileID: 6835796994955275805}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -53,7 +54,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a0683e04e52d1d479ce23efa088deff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Damage: 30
 --- !u!114 &2881740432777036257
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -68,6 +68,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <MaxHealthPont>k__BackingField: 50
   <Current>k__BackingField: 50
+--- !u!114 &7741148213478858217
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4658138116588193181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 211aebe7acfe43fe848d0f4bd044fd76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _timeCooldown: 1.5
+  LayerMaskAttacked:
+    serializedVersion: 2
+    m_Bits: 64
+  <Damage>k__BackingField: 30
+  <DistanceUsing>k__BackingField: 1.3
 --- !u!114 &8274688846449871176
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -81,7 +99,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MoveSpeed: 4
-  TimeAttacking: 0.7
   _patrolRadius: 3
   _attackDistance: 2
 --- !u!114 &658659695639083022
@@ -185,7 +202,7 @@ Animator:
   m_GameObject: {fileID: 4658138116588193181}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 332ab77140f36e147968e7478744b60a, type: 2}
+  m_Controller: {fileID: 9100000, guid: 8808b9b2dbc97b746b23121bd0b34980, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -240,7 +257,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8812765953934753613}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Attack point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -273,6 +290,10 @@ PrefabInstance:
     - target: {fileID: 4262107193981392156, guid: 9eddb39e37739204a8588f1b35dcc8c8, type: 3}
       propertyPath: m_Name
       value: SmoothSliderHealthViiew
+      objectReference: {fileID: 0}
+    - target: {fileID: 4262107193981392156, guid: 9eddb39e37739204a8588f1b35dcc8c8, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4379835755493206121, guid: 9eddb39e37739204a8588f1b35dcc8c8, type: 3}
       propertyPath: m_PresetInfoIsWorld
@@ -358,10 +379,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6011550821490459682, guid: 9eddb39e37739204a8588f1b35dcc8c8, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 6563768088524675339, guid: 9eddb39e37739204a8588f1b35dcc8c8, type: 3}
       propertyPath: Health
       value: 
       objectReference: {fileID: 2881740432777036257}
+    - target: {fileID: 6886482335027976901, guid: 9eddb39e37739204a8588f1b35dcc8c8, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6949090719072415415, guid: 9eddb39e37739204a8588f1b35dcc8c8, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7009701365590649915, guid: 9eddb39e37739204a8588f1b35dcc8c8, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7286748294823820852, guid: 9eddb39e37739204a8588f1b35dcc8c8, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 7571055025396252108, guid: 9eddb39e37739204a8588f1b35dcc8c8, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
