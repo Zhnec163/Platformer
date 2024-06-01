@@ -3,17 +3,17 @@ using UnityEngine;
 
 public class PlayerInput : MonoBehaviour
 {
-    private event Action<float> OnMoving;
-    private event Action OnJumped;
-    private event Action OnBaseAttacked;
-    private event Action OnVampirismAttacked;
+    private event Action<float> Moving;
+    private event Action Jumped;
+    private event Action BaseAttacked;
+    private event Action VampirismAttacked;
 
-    public void Init(Action<float> onMoving, Action onJumped, Action onBaseAttacked, Action onVampirismAttacked)
+    public void Init(Action<float> moving, Action jumped, Action baseAttacked, Action vampirismAttacked)
     {
-        OnMoving = onMoving;
-        OnJumped = onJumped;
-        OnBaseAttacked = onBaseAttacked;
-        OnVampirismAttacked = onVampirismAttacked;
+        Moving = moving;
+        Jumped = jumped;
+        BaseAttacked = baseAttacked;
+        VampirismAttacked = vampirismAttacked;
     }
 
     private void Update()
@@ -23,10 +23,10 @@ public class PlayerInput : MonoBehaviour
 
     private void OnDestroy()
     {
-        OnMoving = null;
-        OnJumped = null;
-        OnBaseAttacked = null;
-        OnVampirismAttacked = null;
+        Moving = null;
+        Jumped = null;
+        BaseAttacked = null;
+        VampirismAttacked = null;
     }
 
     private void ProcessInput()
@@ -34,14 +34,14 @@ public class PlayerInput : MonoBehaviour
         float horizontalInput = Input.GetAxis(Constant.HorizontalAxis);
         
         if (Mathf.Approximately(0, horizontalInput) == false)
-            OnMoving?.Invoke(horizontalInput);
+            Moving?.Invoke(horizontalInput);
 
         if (Input.GetKeyDown(KeyCode.Space))
-            OnJumped?.Invoke();
+            Jumped?.Invoke();
 
         if (Input.GetKeyDown(KeyCode.N))
-            OnBaseAttacked?.Invoke();
+            BaseAttacked?.Invoke();
         else if (Input.GetKeyDown(KeyCode.M))
-            OnVampirismAttacked?.Invoke();
+            VampirismAttacked?.Invoke();
     }
 }
