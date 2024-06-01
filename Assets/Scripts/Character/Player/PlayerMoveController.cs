@@ -13,8 +13,6 @@ public class PlayerMoveController : CharacterMover
     private Rigidbody2D _rigidbody;
     private bool _playerOnGround;
     
-    [HideInInspector] public bool IsIdle => Condition.IsAboutZero(_rigidbody.velocity.magnitude) && _playerOnGround;
-
     private void Awake()
     {
         base.Init();
@@ -27,6 +25,8 @@ public class PlayerMoveController : CharacterMover
     {
         DetectGround();
     }
+
+    public bool IsIdle() => Condition.IsAboutZero(_rigidbody.velocity.magnitude) && _playerOnGround;
 
     public void Move(float direction)
     {

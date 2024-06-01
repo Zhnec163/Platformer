@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -32,7 +34,7 @@ public abstract class Skill : MonoBehaviour
 
         return false;
     }
-    
+
     protected abstract void Cast();
 
     protected bool TryGetNearCharacter(out Character character)
@@ -40,32 +42,33 @@ public abstract class Skill : MonoBehaviour
         character = null;
         float diameter = DistanceUsing * 2;
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, diameter, LayerMaskAttacked);
+        List<Character> characters = new List<Character>();
 
-        if (colliders.Length == 0)
+        foreach (Collider2D collider in colliders)
+        {
+            if (collider.TryGetComponent(out Character currentCharacter))
+                characters.Add(currentCharacter);
+        }
+
+        if (characters.Count == 0)
             return false;
 
         float bestDistance = Single.MaxValue;
-            
-        for (int i = 0; i < colliders.Length; i++)
+
+        for (int i = 0; i < characters.Count; i++)
         {
-            float currentDistance = Vector2.Distance(transform.position, colliders[i].transform.position);
-            
+            float currentDistance = Vector2.Distance(transform.position, characters[i].transform.position);
+
             if (currentDistance < bestDistance)
             {
-                if (colliders[i].TryGetComponent(out Character currentCharacter))
-                {
-                    character = currentCharacter;
-                    bestDistance = currentDistance;
-                }
+                character = characters[i];
+                bestDistance = currentDistance;
             }
         }
 
-        if (character == null)
-            return false;
-        else
-            return true;
+        return true;
     }
-    
+
     private IEnumerator ResetAttack()
     {
         yield return new WaitForSeconds(_timeCooldown);

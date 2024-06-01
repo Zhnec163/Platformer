@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Serialization;
 
+[RequireComponent(typeof(Health))]
 public class Vampirism : Skill
 {
     [SerializeField] private float _timeUsing;

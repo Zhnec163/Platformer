@@ -9,7 +9,7 @@ public class Player : Character
     private int _coinCount;
     private PlayerInput _input;
     private PlayerMoveController _playerMoveController;
-    protected AnimationController _animationController;
+    private AnimationController _animationController;
     private Attack _attack;
     private Vampirism _vampirism;
 
@@ -35,7 +35,7 @@ public class Player : Character
 
     private void FixedUpdate()
     {
-        if (_playerMoveController.IsIdle)
+        if (_playerMoveController.IsIdle())
             _animationController.PlayingIdleAnimation();
     }
 
