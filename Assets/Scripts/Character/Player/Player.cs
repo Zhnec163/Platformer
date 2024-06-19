@@ -58,7 +58,10 @@ public class Player : Character
         _playerMoveController.Move(direction);
     }
 
-    private void HandleJump() => _playerMoveController.TryJump();
+    private void HandleJump()
+    {
+        _playerMoveController.TryJump();
+    }
 
     private void HandleAttack()
     {
